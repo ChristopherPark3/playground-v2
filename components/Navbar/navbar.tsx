@@ -4,6 +4,7 @@ import { useState } from "react";
 import { NavbarItems } from "./NavbarItems";
 import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { PanelLeft } from "lucide-react";
 
 export const Navbar = () => {
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
@@ -20,6 +21,9 @@ export const Navbar = () => {
       onMouseLeave={() => setIsExpanded(false)}
     >
       <div className="flex flex-col space-y-2 h-full p-2">
+        <div className="flex items-center p-2">
+          <PanelLeft className="size-4" strokeWidth={1}/>
+        </div>
         {NavbarItems.map((item) => (
           <div
             key={item.id}
