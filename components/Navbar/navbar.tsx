@@ -2,12 +2,13 @@
 
 import { useState } from "react";
 import { NavbarItems } from "./NavbarItems";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 
 export const Navbar = () => {
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
   const pathName = usePathname();
+  const router = useRouter();
 
   return (
     <nav
@@ -26,6 +27,7 @@ export const Navbar = () => {
               "flex items-center h-fit p-2 space-x-2 transition-colors duration-150 hover:bg-gray-200 rounded-lg cursor-default",
               pathName.includes(item.id) && "bg-gray-200"
             )}
+            onClick={() => router.push(`/${item.id}`)}
           >
             <div>{item.icon}</div>
             <div
