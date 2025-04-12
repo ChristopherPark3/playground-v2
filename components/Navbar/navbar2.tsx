@@ -45,7 +45,7 @@ export const Navbar2 = () => {
     >
       <div className="flex flex-col space-y-2 h-full p-2">
         <div
-          className="flex items-center p-2 transition-colors duration-150 hover:bg-gray-200 rounded-lg cursor-default w-fit"
+          className="flex items-center p-2 transition-colors duration-300 hover:bg-gray-200 rounded-lg cursor-default w-fit"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
           onClick={handleExpandToggle}
@@ -53,12 +53,12 @@ export const Navbar2 = () => {
           {isHovered ? (
             !isExpanded ? (
               <ArrowRightToLine
-                className="size-4 animate-in fade-in duration-150"
+                className="size-4 animate-in fade-in duration-300"
                 strokeWidth={1.5}
               />
             ) : (
               <ArrowLeftToLine
-                className="size-4 animate-in fade-in duration-150"
+                className="size-4 animate-in fade-in duration-300"
                 strokeWidth={1.5}
               />
             )
@@ -69,12 +69,12 @@ export const Navbar2 = () => {
           )}
         </div>
         {NavbarItems.map((item) => (
-          <TooltipProvider delayDuration={100} key={item.id}>
+          <TooltipProvider delayDuration={120} key={item.id}>
             <Tooltip open={!isExpanded && openTooltipId === item.id}>
               <TooltipTrigger asChild>
                 <div
                   className={cn(
-                    "flex items-center h-fit p-2 space-x-2 transition-colors duration-150 hover:bg-gray-200 rounded-lg cursor-default",
+                    "animate-on-hover flex items-center h-fit p-2 space-x-2 transition-colors duration-150 hover:bg-gray-200 rounded-lg cursor-default",
                     pathName.includes(item.id) &&
                       item.activeBackgroundColor +
                         ` text-white hover:${item.activeBackgroundColor}`

@@ -1,4 +1,5 @@
 import { Handshake, Puzzle, Settings, TestTube } from "lucide-react";
+import AnimatedHandshake from "../Icons/AnimatedHandshake";
 
 export const NavbarItems = [
   {
@@ -16,7 +17,7 @@ export const NavbarItems = [
   {
     id: "community",
     displayText: "Community",
-    icon: <Handshake className="size-4" strokeWidth={1.5} />,
+    icon: <AnimatedHandshake className="size-4" strokeWidth={1.5} />,
     activeBackgroundColor: "bg-orange-400",
   },
   {
