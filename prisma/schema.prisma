@@ -10,9 +10,9 @@ datasource db {
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model Components {
-  id         String   @id @default(cuid()) // Changed from UUID to String with cuid
+  id         String   @id @default(cuid())
   created_at DateTime @default(now()) @db.Timestamptz(6)
-  user_id    String   
+  user_id    String
   is_public  Boolean  @default(false)
   User       User     @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
@@ -20,11 +20,11 @@ model Components {
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model User {
-  id         String       @id @default(cuid()) // Change from Uuid to String
-  created_at DateTime     @default(now()) @db.Timestamptz(6)
+  id         String       @id @default(cuid())
+  created_at DateTime     @db.Timestamptz(6)
   user_name  String?
+  email      String       @unique
   first_name String?
   last_name  String?
-  email      String       @unique
   Components Components[]
 }
