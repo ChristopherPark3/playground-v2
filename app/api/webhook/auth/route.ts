@@ -2,6 +2,7 @@ import { Webhook } from "svix";
 import { headers } from "next/headers";
 import { WebhookEvent } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
+import prisma from "@/lib/prisma";
 
 export async function GET() {
   return NextResponse.json({ message: "GET works" }, { status: 200 });
@@ -61,7 +62,23 @@ export async function POST(req: Request) {
 
       console.log("CLERK WEBHOOK ", email, id, first_name, last_name, username);
 
+      console.log(id)
+
       // Check if user already exists
+      const user = await prisma.user.count({ where: { email } });
+      if (user > 0) {
+        return NextResponse.json("User already exists", { status: 409 });
+      }
+
+      await prisma.user.create({
+        data: {
+          id: id,
+          email: email,
+          first_name: first_name,
+          last_name: last_name,
+          user_name: username || null,
+        },
+      });
       return NextResponse.json("New user created", { status: 200 });
     } catch (error: unknown) {
       console.error("Error creating user: ", error);
