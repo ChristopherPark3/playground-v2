@@ -17,7 +17,11 @@ export function AnimatedTabs({ user }: { user: User }) {
       value: "subscription",
       content: <Subscription />
     },
-
+    {
+      title: "Preferences",
+      value: "preferences",
+      content: <Subscription />
+    },
   ];
 
   return <Tabs tabs={tabs} />;
