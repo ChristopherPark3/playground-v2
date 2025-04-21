@@ -8,8 +8,6 @@ export default function SettingsPage() {
   const { user: clerkUser } = useUser();
   const { data: user, isLoading: isUserLoading } = useGetUser(clerkUser?.id);
 
-  console.log(user);
-
   if (isUserLoading) {
     return (
       <div className="w-full h-full flex items-center justify-center">

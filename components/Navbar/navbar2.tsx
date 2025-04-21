@@ -18,7 +18,6 @@ import {
 } from "../ui/tooltip";
 import { useUser, useClerk } from "@clerk/nextjs";
 
-
 export const Navbar2 = () => {
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
   const [isHovered, setIsHovered] = useState<boolean>(false);
@@ -27,7 +26,6 @@ export const Navbar2 = () => {
   const router = useRouter();
   const user = useUser();
   const { signOut } = useClerk();
-
 
   const handleExpandToggle = () => {
     if (isHovered) {
