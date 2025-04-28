@@ -5,16 +5,23 @@ import { CodeEditor } from "./CodeEditor";
 interface ComponentSheetProps {
   isOpen: boolean;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
+  code: string;
+  setCode: Dispatch<SetStateAction<string>>;
 }
 
-export const ComponentSheet = ({ isOpen, setIsOpen }: ComponentSheetProps) => {
+export const ComponentSheet = ({
+  isOpen,
+  setIsOpen,
+  code,
+  setCode,
+}: ComponentSheetProps) => {
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
-      <SheetContent className="w-[1000px] flex flex-col gap-4">
+      <SheetContent className="w-[50vw] flex flex-col gap-4">
         <SheetHeader>
           <EditableInput />
         </SheetHeader>
-        <CodeEditor />
+        <CodeEditor code={code} setCode={setCode} defaultValue={code} />
       </SheetContent>
     </Sheet>
   );

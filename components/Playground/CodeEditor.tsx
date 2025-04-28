@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, Dispatch, SetStateAction } from "react";
 import Editor from "@monaco-editor/react";
 import { Sun, Moon, Copy, Loader2, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -15,6 +15,8 @@ interface CodeEditorProps {
   onChange?: (value: string | undefined) => void;
   readOnly?: boolean;
   height?: number | string;
+  code: string;
+  setCode: Dispatch<SetStateAction<string>>;
 }
 
 export const CodeEditor = ({
@@ -23,10 +25,11 @@ export const CodeEditor = ({
   onChange,
   readOnly = false,
   height = 500,
+  code,
+  setCode,
 }: CodeEditorProps) => {
   const [theme, setTheme] = useState<"light" | "vs-dark">("vs-dark");
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [code, setCode] = useState<string>(defaultValue);
   const [isCopied, setIsCopied] = useState<boolean>(false);
 
   const handleEditorChange = useCallback(
@@ -49,11 +52,35 @@ export const CodeEditor = ({
     }, 2000);
   }, [code]);
 
+  const handleEditorDidMount = (editor, monaco) => {
+    setIsLoading(false);
+
+    // Add React and HTML typings for better intellisense
+    monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
+      jsx: monaco.languages.typescript.JsxEmit.React,
+      jsxFactory: "React.createElement",
+      reactNamespace: "React",
+      allowNonTsExtensions: true,
+      target: monaco.languages.typescript.ScriptTarget.Latest,
+      allowJs: true,
+      moduleResolution: monaco.languages.typescript.ModuleResolutionKind.NodeJs,
+    });
+  };
+
   const toggleTheme = useCallback(() => {
     setTheme((prev) => (prev === "light" ? "vs-dark" : "light"));
   }, []);
 
   const isDark = theme === "vs-dark";
+
+  const editorOptions = {
+    minimap: { enabled: false },
+    scrollBeyondLastLine: false,
+    fontFamily: "monospace",
+    fontSize: 14,
+    readOnly,
+    automaticLayout: true,
+  };
 
   return (
     <div
@@ -141,7 +168,8 @@ export const CodeEditor = ({
           defaultValue={defaultValue}
           onChange={handleEditorChange}
           className="transition-colors duration-300"
-          onMount={() => setIsLoading(false)}
+          onMount={handleEditorDidMount}
+          options={editorOptions}
           loading={
             <div
               className={cn(

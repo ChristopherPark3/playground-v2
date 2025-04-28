@@ -8,7 +8,6 @@ export default function PlaygroundLayout({
 }) {
   return (
     <div className="w-full h-full relative">
-      <DottedBackground />
       <div className="absolute w-full h-full">{children}</div>
     </div>
   );
