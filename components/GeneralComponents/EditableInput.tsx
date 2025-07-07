@@ -24,9 +24,8 @@ export const EditableInput = ({ size = "md" }: EditableInputProps) => {
     <div
       ref={inputRef}
       className={cn(
-        "p-1.5 rounded-xl px-3 hover:bg-blue-50/80 transition-colors duration-300 w-52",
-        !value && "bg-red-50/80",
-        isEditing && "bg-blue-50/80"
+        "p-1.5 rounded-xl px-3 hover:bg-neutral-100 transition-colors duration-300 w-52",
+        isEditing && "bg-neutral-100"
       )}
       onClick={() => setIsEditing(true)}
     >
